@@ -1,25 +1,35 @@
-cmake_minimum_required(VERSION 3.10)
-project(ros_package_template)
+cmake_minimum_required(VERSION 3.10)##所需的Cmake版本
+project(hero_chassis_controller)##包名称
 
 ## Use C++14
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 14)##可以使用的c++版本
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 ## By adding -Wall and -Werror, the compiler does not ignore warnings anymore,
 ## enforcing cleaner code.
-add_definitions(-Wall -Werror)
+add_definitions(-Wall -Werror)##启动的自行检查报错功能
 
 ## Find catkin macros and libraries
-find_package(catkin REQUIRED
+find_package(catkin REQUIRED##查找构建所需的其他Cmake/Catkin包
     COMPONENTS
-    roscpp
-    sensor_msgs
-    roslint
+        COMPONENTS
+        roscpp
+        roslint
+        controller_interface
+        hardware_interface
+        forward_command_controller
+        control_toolbox
+        geometry_msgs
+        control_msgs
+        realtime_tools
+        tf
+        nav_msgs
+        pluginlib
     )
 
 ## Find system libraries
-find_package(Eigen3 REQUIRED)
-find_package(Boost REQUIRED)
+find_package(Eigen3 REQUIRED)##用于查找并配置使用线性代数运算的C++模板库
+find_package(Boost REQUIRED)##查找并使用一个广泛使用的C++扩展库
 
 ###################################
 ## catkin specific configuration ##
@@ -30,17 +40,27 @@ find_package(Boost REQUIRED)
 ## LIBRARIES: libraries you create in this project that dependent projects also need
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
-catkin_package(
-    INCLUDE_DIRS
+catkin_package(  ##指定包构建信息导出
+    INCLUDE_DIRS##参数：导出的包的包含路径
     include
     ## This is only necessary because Eigen3 sets a non-standard EIGEN3_INCLUDE_DIR variable
     ${EIGEN3_INCLUDE_DIR}
-    LIBRARIES
+    LIBRARIES##参数：从项目中导出的库
     ${PROJECT_NAME}_core
-    CATKIN_DEPENDS
-    roscpp
-    sensor_msgs
-    DEPENDS
+    CATKIN_DEPENDS##参数：该项目依赖的其他catkn项目
+        roscpp
+        roslint
+        controller_interface
+        hardware_interface
+        forward_command_controller
+        control_toolbox
+        geometry_msgs
+        control_msgs
+        realtime_tools
+        tf
+        nav_msgs
+        pluginlib
+        DEPENDS##参数：该项目依赖的非catkin Cmake项目
     ## find_package(Eigen3) provides a non standard EIGEN3_INCLUDE_DIR instead of Eigen3_INCLUDE_DIRS.
     ## Therefore, the DEPEND does not work as expected and we need to add the directory to the INCLUDE_DIRS
     # Eigen3
@@ -65,15 +85,15 @@ include_directories(
 )
 
 ## Declare a cpp library
-add_library(${PROJECT_NAME}_core
-    src/Algorithm.cpp
+add_library(${PROJECT_NAME}_core##要构建的库/可执行文件
+        src/hero_chassis_controller.cpp
     )
 target_compile_features(${PROJECT_NAME}_core INTERFACE cxx_std_11)
 
 ## Declare cpp executables
-add_executable(${PROJECT_NAME}
+add_executable(${PROJECT_NAME}##要构建的库/可执行文件
     src/${PROJECT_NAME}_node.cpp
-    src/RosPackageTemplate.cpp
+    src/hero_chassis_controller_node.cpp.cpp
     )
 target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_11)
 

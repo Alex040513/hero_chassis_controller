@@ -1,0 +1,22 @@
+hero_chassis_controller:
+  type: hero_chassis_controller/HeroChassisController
+  wheel_param:
+    wheel_base: 0.4 # change the real param in here 轮距
+    wheel_track: 0.6 # change the real param in here 轮距
+    radius: 1 #change the real param in here 半径
+  left_front_wheel:
+    joint: "left_front_wheel_joint"
+    pid: { p: 1.2, i: 0.05, d: 0.02 }
+  right_front_wheel:
+    joint: "right_front_wheel_joint"
+    pid: { p: 1.2, i: 0.05, d: 0.02 }
+  left_back_wheel:
+    joint: "left_back_wheel_joint"
+    pid: { p: 1.2, i: 0.05, d: 0.02 }
+  right_back_wheel:
+    joint: "right_back_wheel_joint"
+    pid: { p: 1.2, i: 0.05, d: 0.02 }
+
+    joint_state_controller:
+      type: joint_state_controller/JointStateController
+      publish_rate: 50

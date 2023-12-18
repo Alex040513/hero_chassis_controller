@@ -1,0 +1,11 @@
+<launch>
+  <node name="teleop_keyboard" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen"/>
+  <include file="$(find rm_description)/launch/hero.launch">
+    <arg name="load_chassis" value="true"/>
+    <arg name="roller_type" value="realistic"/>
+    <arg name="paused" value="false"/>
+  </include>
+  <!-- Launch ROS Package Template Node -->
+
+    <rosparam file="$(find hero_chassis_controller)/config/param.yaml" command="load"/>
+</launch>

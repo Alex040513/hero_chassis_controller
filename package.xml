@@ -26,6 +26,7 @@
   <depend>tf</depend>
   <depend>nav_msgs</depend>
   <depend>pluginlib</depend>
+  <depend>forward_command_controller</depend>
   <export>
     <controller_interface plugin="${prefix}/hero_chassis_controller_plugins.xml"/>
   </export>

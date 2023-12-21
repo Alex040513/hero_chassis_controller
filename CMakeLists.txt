@@ -10,7 +10,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_definitions(-Wall -Werror)##启动的自行检查报错功能
 
 ## Find catkin macros and libraries
-find_package(catkin REQUIRED##查找构建所需的其他Cmake/Catkin包
+##查找构建所需的其他Cmake/Catkin包
+find_package(catkin REQUIRED
     COMPONENTS
         COMPONENTS
         roscpp
@@ -40,8 +41,10 @@ find_package(Boost REQUIRED)##查找并使用一个广泛使用的C++扩展库
 ## LIBRARIES: libraries you create in this project that dependent projects also need
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
-catkin_package(  ##指定包构建信息导出
-    INCLUDE_DIRS##参数：导出的包的包含路径
+##指定包构建信息导出
+##参数：导出的包的包含路径
+catkin_package(
+    INCLUDE_DIRS
     include
     ## This is only necessary because Eigen3 sets a non-standard EIGEN3_INCLUDE_DIR variable
     ${EIGEN3_INCLUDE_DIR}
@@ -82,6 +85,8 @@ include_directories(
     ${EIGEN3_INCLUDE_DIR}
     # Set because Boost is an internal dependency, not transitive.
     ${Boost_INCLUDE_DIRS}
+        ${hardware_interface_INCLUDE_DIRS}
+
 )
 
 ## Declare a cpp library
@@ -92,8 +97,8 @@ target_compile_features(${PROJECT_NAME}_core INTERFACE cxx_std_11)
 
 ## Declare cpp executables
 add_executable(${PROJECT_NAME}##要构建的库/可执行文件
-    src/${PROJECT_NAME}_node.cpp
-    src/hero_chassis_controller_node.cpp.cpp
+#    src/${PROJECT_NAME}_node.cpp
+    src/hero_chassis_controller.cpp
     )
 target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_11)
 

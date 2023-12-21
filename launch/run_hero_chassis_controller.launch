@@ -6,6 +6,12 @@
     <arg name="paused" value="false"/>
   </include>
   <!-- Launch ROS Package Template Node -->
+  <rosparam file="$(find hero_chassis_controller)/config/param.yaml" command="load"/>
 
-    <rosparam file="$(find hero_chassis_controller)/config/param.yaml" command="load"/>
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+        output="screen" args="
+        controller/hero_chassis_controller
+        controller/joint_state_controller
+  "/>
+
 </launch>

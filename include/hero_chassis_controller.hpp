@@ -10,6 +10,7 @@
 #include <hardware_interface/joint_command_interface.h>
 #include <nav_msgs/Odometry.h>
 #include <tf/transform_broadcaster.h>
+#include <tf/transform_listener.h>
 #include <ros/ros.h>
 
 namespace hero_chassis_controller
@@ -25,6 +26,8 @@ namespace hero_chassis_controller
                 void getGains(double &p, double &i, double &d, double &i_max, double &i_min, bool &antiwindup){};
 
                 void update(const ros::Time& time, const ros::Duration& period)override;
+                void setCommandCB(const geometry_msgs::Twist::ConstPtr &msg ,const ros::Duration& period);
+                void setCommandAB();
             private:
                 control_toolbox::Pid pid_front_left_;
                 control_toolbox::Pid pid_front_right_;
@@ -49,6 +52,7 @@ namespace hero_chassis_controller
                 //void get_vel_cmd(const geometry_msgs::TwistConstPtr &msg);
 
                 double x{0.0},y{0.0},th{0.0};
+//                double ox{0.0},oy{0.0},oth{0.0};
                 double lx{0.0},ly{0.0},az{0.0};
                 double vx{0.0},vy{0.0},vth{0.0};
                 int loop_count_;

@@ -71,7 +71,7 @@ namespace hero_chassis_controller
         odom_pub_ = root_nh.advertise<nav_msgs::Odometry>("/odom", 1);
         return true;
 
-//
+
         void HeroChassisController::starting(const ros::Time& time) {
             //初始化速度变量
             cmd_vel_.linear.x = 0.0;
@@ -154,9 +154,7 @@ namespace hero_chassis_controller
                 ly = msg->linear.y;//获取 Twist 消息中的 y 方向的线速度信息
                 az = msg->angular.z;//获取 Twist 消息中以 z 轴为转轴的角速度信息
 
-                double wheel_base_ = {0.0};
-                double wheel_track_{0.0};
-                double wheel_radius_{0.0};
+
                 double l = (wheel_base_ + wheel_track_) / 2;
                 //void HeroChassisController::compute_the_cmd()
                 //{
@@ -194,7 +192,7 @@ namespace hero_chassis_controller
             //}
             //void HeroChassisController::transform_then_pub()
             //{
-            compute_the_cur_vel();
+           // compute_the_cur_vel();
             //根据机器人的速度计算里程计
             current_time = ros::Time::now();
             last_time = ros::Time::now();
@@ -215,7 +213,7 @@ namespace hero_chassis_controller
             geometry_msgs::TransformStamped odom_trans;//创建一条TransformStamped消息
             odom_trans.header.stamp = current_time;//通过 tf.我们想要发布“odom”的变换帧到“base_link”帧位于 current_time。
             odom_trans.header.frame_id = "odom";//这里指要被变换的父坐标系为odom
-            odom_trans.trans.child_frame_id = "base_link";//这里指的变换为base_link
+            odom_trans.child_frame_id = "base_link";//这里指的变换为base_link
             //根据里程计数据填充转换消息，然后使用我们的 TransformBroadcaster 发送转换。
             odom_trans.transform.translation.x = x;//这里设置了变换消息的平移部分在x轴上的值为x，表示相对于参考坐标系的x轴方向的平移距离。
             odom_trans.transform.translation.y = y;//这里设置了变换消息的平移部分在y轴上的值为y，表示相对于参考坐标系的y轴方向的平移距离。
@@ -240,9 +238,9 @@ namespace hero_chassis_controller
             odom.twist.twist.linear.y = vy;
             odom.twist.twist.angular.z = vth;
             //publish the message
-            odom_pub.publish(odom);
+            odom_pub_.publish(odom);
             last_time = current_time;
-            r.sleep();
+            //r.sleep();
         }
 
     ros::Rate r(1.0);//让程序在这里暂停一段时间，这样可以控制数据的发布频率减轻系统负载

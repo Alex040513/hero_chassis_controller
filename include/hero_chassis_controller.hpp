@@ -21,10 +21,10 @@ namespace hero_chassis_controller
                 ~HeroChassisController();
                 bool init(hardware_interface::EffortJointInterface *effort_joint_interface,ros::NodeHandle &root_nh, ros::NodeHandle &n) override;
 
-                void HeroChassisController::starting(const ros::Time& time);
-                void getGains(double &p, double &i, double &d, double &i_max, double &i_min, bool &antiwindup);
+                void starting(const ros::Time& time)override;
+                void getGains(double &p, double &i, double &d, double &i_max, double &i_min, bool &antiwindup){};
 
-                void HeroChassisController::update(const ros::Time& time, const ros::Duration& period)override;
+                void update(const ros::Time& time, const ros::Duration& period)override;
             private:
                 control_toolbox::Pid pid_front_left_;
                 control_toolbox::Pid pid_front_right_;
@@ -74,6 +74,7 @@ namespace hero_chassis_controller
                 bool mode;
             };
 }
+#if(x)
 #endif
 
 

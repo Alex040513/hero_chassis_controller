@@ -22,12 +22,13 @@ namespace hero_chassis_controller
                 ~HeroChassisController();
                 bool init(hardware_interface::EffortJointInterface *effort_joint_interface,ros::NodeHandle &root_nh, ros::NodeHandle &n) override;
 
-                void starting(const ros::Time& time)override;
+//                void starting(const ros::Time& time) override;
                 void getGains(double &p, double &i, double &d, double &i_max, double &i_min, bool &antiwindup){};
 
-                void update(const ros::Time& time, const ros::Duration& period)override;
-                void setCommandCB(const geometry_msgs::Twist::ConstPtr &msg ,const ros::Duration& period);
+                void update(const ros::Time& time, const ros::Duration& period) override;
+                void setCommandCB(const geometry_msgs::Twist::ConstPtr &msg );
                 void setCommandAB();
+
             private:
                 control_toolbox::Pid pid_front_left_;
                 control_toolbox::Pid pid_front_right_;
@@ -75,11 +76,8 @@ namespace hero_chassis_controller
                 tf::TransformListener frame_listener;
                 geometry_msgs::Vector3Stamped vel_odom;
                 geometry_msgs::Vector3Stamped vel_base;
-                bool mode;
+                bool mode{};
             };
 }
-#if(x)
-#endif
-
 
 
